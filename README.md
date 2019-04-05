@@ -20,5 +20,22 @@ Country:
 
 Version:
 
-### Rating:
+#### Rating:
+
+Date:
+
+Author:
+
+#### Subject:
+
+#### Body:
+
+#### Translated Subject:
+
+#### Translated Body:
+
+Emotion:
+
+Device:
+
 
