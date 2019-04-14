@@ -70,3 +70,14 @@ non_eng_review = review[~review['language_id']]
 # lang-detect is a tiny bit better, but much slower
 # langid is good, but CLD-2 and lang-detect are much better
 # NLTK's Textcat is neither efficient nor effective.
+
+# combine English subject & body with translated subject & body
+review['Subject_combined'] = review['Translated Subject'].fillna(review['Subject'])
+review['Body_combined'] = review['Translated Body'].fillna(review['Body'])
+
+review_set2 = review[['App Name', 'App Store', 'App', 'Store', 'App ID', 'Review ID',
+       'Country', 'Version', 'Rating', 'Date', 'Author', 'Emotion', 'Device', 'Subject_combined', 'Body_combined']]
+
+percent_missing = review_set2.isnull().sum()*100/len(review_set2)
+missing_value_df = pd.DataFrame({'column_name': review_set2.columns,
+                                 'percent_missing': percent_missing})
