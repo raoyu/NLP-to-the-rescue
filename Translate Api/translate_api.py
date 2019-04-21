@@ -13,7 +13,7 @@ import os, requests, uuid, json
 import concurrent.futures
 import time
 
-review_raw = pd.read_csv("all_raw_data.csv", error_bad_lines=False)
+review_raw = pd.read_csv("Datasets/all_raw_data.csv", error_bad_lines=False)
 print(review_raw.shape)
 
 # Check if all foreign languages have translation
@@ -56,7 +56,7 @@ time1 = None
 time2 = None
 
 ### Select the propotion of dataset that you need to translate
-review_test = review[0:100000]
+review_test = review[100000:200000]
 body_translate=[]
 count = 0
 start = time.time()
@@ -73,9 +73,16 @@ for index, row in review_test.iterrows():
     print(count)
 
 
-df = pd.DataFrame(body_translate, columns=["Text"])
+#df = pd.DataFrame(body_translate, columns=["Text"])
+
+review_test['Review_Text_translation'] = body_translate
+
+review_final = review_test[['App Name', 'App Store', 'App ID', 'Review ID',
+       'Country', 'Version', 'Rating', 'Date', 'Author', 'Emotion', 'Device', 'Review_Text', 'Review_Text_translation']]
+
 ### Please change the output name everytime
-df.to_csv('100000.csv', index=False)
+review_final.to_csv('review_final_100001_200000.csv', index=False)
 
 print("--- %s seconds ---" % (time.time() - start))
+
 
